@@ -45,7 +45,7 @@ The **Software** used is:
 
 <center>1. B-L072Z-LRWAN1</center>
 
-<img title="" src="images/images/1_1.JPG" alt="1" data-align="center" width="553">
+<img title="" src="images/1_1.JPG" alt="1" data-align="center" width="553">
 
 <br>
 <br>
