@@ -1,5 +1,4 @@
-## <center>Machine Learning Core with STM MEMS Sensor LSM6DSOX
-
+## <center>README
 <br>
 
 <center>This report demonstrates how to use the LSM6DSOX Machine Learning Sensor in combination with the B-L072Z-LRWAN1 and the X-NUCLEO-IKS01A3, create a Decision Tree with Weka and use it to get feedback from the actions performed.</center>
