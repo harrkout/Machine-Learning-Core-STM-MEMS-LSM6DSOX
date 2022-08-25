@@ -461,7 +461,7 @@ The **Software** used is:
   > 
   > 
   > 
-  > [![test](https://raw.githubusercontent.com/harrkout/Machine-Learning-Core-STM-MEMS/main/images/6_6.JPG?token=GHSAT0AAAAAABUG4U3MSWMC3VRGYDIKVXNQYYHWNRA)](https://www.youtube.com/watch?v=m6ylfVGBezo)
+  > [![test](/images/6_6.JPG)](https://www.youtube.com/watch?v=m6ylfVGBezo)
 
 ##### <center> This concludes this demo.
 
