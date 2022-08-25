@@ -45,7 +45,7 @@ The **Software** used is:
 
 <center>1. B-L072Z-LRWAN1</center>
 
-<img title="" src="1_1.JPG" alt="1" data-align="center" width="553">
+<img title="" src="images/1_1.JPG" alt="1" data-align="center" width="553">
 
 <br>
 <br>
@@ -66,7 +66,7 @@ The **Software** used is:
 
 <br>
 
-<img title="" src="2_2.JPG" alt="2" data-align="center" width="551">
+<img title="" src="images/2_2.JPG" alt="2" data-align="center" width="551">
 
 <br>
 
@@ -76,7 +76,7 @@ The **Software** used is:
 
 <br>
 
-<img title="" src="3_3.JPG" alt="3" data-align="center" width="554"><br>
+<img title="" src="images/3_3.JPG" alt="3" data-align="center" width="554"><br>
 
 <br>
 
@@ -118,7 +118,7 @@ The **Software** used is:
 
 <br>
 
-<img title="" src="4_4.jpg" alt="4" data-align="center" width="573">
+<img title="" src="images/4_4.jpg" alt="4" data-align="center" width="573">
 
 <br>
 
@@ -174,7 +174,7 @@ The **Software** used is:
 
 - **Next we add the MKI197V1 on the DIL24 Socket of the IKS01A3**
 
-> **IMPORTANT**: Make sure the ST Logo on BOTH the extender and the adapter are aligned, otherwise the adapter will overheat and most likely circuit itself.        <img title="" src="5_5.JPG" alt="5" data-align="center" width="513">
+> **IMPORTANT**: Make sure the ST Logo on BOTH the extender and the adapter are aligned, otherwise the adapter will overheat and most likely circuit itself.        <img title="" src="images/5_5.JPG" alt="5" data-align="center" width="513">
 
 <br>
 
@@ -183,7 +183,7 @@ The **Software** used is:
 
 <br>
 
-<img title="" src="6_6.JPG" alt="6" data-align="center" width="570">
+<img title="" src="images/6_6.JPG" alt="6" data-align="center" width="570">
 
 <br>
 
@@ -195,7 +195,7 @@ The **Software** used is:
 
 - First we need to program and flash our board. This needs to be done with STM32CubeIDE. 
 
-<img title="" src="ide.png" alt="7" data-align="center" width="741">
+<img title="" src="images/ide.png" alt="7" data-align="center" width="741">
 
 <br>
 
@@ -203,7 +203,7 @@ The **Software** used is:
   
   - > This is the interface of Unicleo. If our board is connected via USB (ST Link) then the Serial Port should be automatically selected, mine for example is COM5. *We select* `Connect`.
     
-    <img title="" src="unicleo1.png" alt="71" data-align="center" width="717">
+    <img title="" src="images/unicleo1.png" alt="71" data-align="center" width="717">
 
 <br>
 
@@ -211,7 +211,7 @@ The **Software** used is:
   
   - > Note that there is also another sensor named LSM6DSO, that is the exaxt same sensor but on the extender IKS01A3 and does not contain the Machine Learning Core. 
     
-    <img title="" src="unicleo1_2.png" alt="72" data-align="center" width="656">
+    <img title="" src="images/unicleo1_2.png" alt="72" data-align="center" width="656">
 
 <br>
 
@@ -219,7 +219,7 @@ The **Software** used is:
   
   - > On the left we can see the option for the visualization of the available sensors. 
     
-    <img title="" src="unicleo2.png" alt="8" data-align="center" width="620">
+    <img title="" src="images/unicleo2.png" alt="8" data-align="center" width="620">
 
 <br>
 
@@ -227,7 +227,7 @@ The **Software** used is:
   
   - > The values will be displayed on the blocks in the right of `MLC0_SRC`.
     
-    <img title="" src="unicleo3.png" alt="9" data-align="center" width="327">
+    <img title="" src="images/unicleo3.png" alt="9" data-align="center" width="327">
 
 <br>
 
@@ -241,7 +241,7 @@ The **Software** used is:
     
     - 8 = Jogging/Running
       
-      <img src="unicleo4.png" title="" alt="10" data-align="center">
+      <img src="images/unicleo4.png" title="" alt="10" data-align="center">
       
       <br>
 
@@ -252,7 +252,7 @@ The **Software** used is:
 <br>
 
 <br>
-  <img src="unicleo5.png" title="" alt="11" data-align="center">
+  <img src="images/unicleo5.png" title="" alt="11" data-align="center">
 
 <br>
 
@@ -264,14 +264,14 @@ The **Software** used is:
   
   <br>
 
-<img title="" src="unicleo6.png" alt="12" data-align="center">
+<img title="" src="images/unicleo6.png" alt="12" data-align="center">
 
 <br>
 
 - I will follow the same steps for the dataset `boxing.csv`.
   
   <br>
-  <img src="unicleo7.png" title="" alt="13" data-align="center">
+  <img src="images/unicleo7.png" title="" alt="13" data-align="center">
 
 <br>
 
@@ -284,7 +284,7 @@ The **Software** used is:
   - > > Select in the `iNemo Inertial Modules` the `STEVAL-MKI197V1 (LSM6DSOX)` sensor and diselect the `Communication with the motherboard` option. Then click on `Select Device`.
     
     <br>
-    <img src="unico1.png" title="" alt="14" data-align="center">
+    <img src="images/unico1.png" title="" alt="14" data-align="center">
 
 <br>
 
@@ -292,7 +292,7 @@ The **Software** used is:
 
 - After the main window shows up, select `MLC` on the left and the Machine Learning Core window will open.
 
-<img src="unico2.png" title="" alt="141" data-align="center">
+<img src="images/unico2.png" title="" alt="141" data-align="center">
 
 <br>
 
@@ -300,7 +300,7 @@ The **Software** used is:
 
 - Now we load each one of the datasets and set the `Class (Label)` as `boxing` for the boxing dataset and `karate` for the karate dataset. 
 
-<img src="unico3.png" title="" alt="15" data-align="center">
+<img src="images/unico3.png" title="" alt="15" data-align="center">
 
 <br>
 
@@ -312,15 +312,15 @@ The **Software** used is:
 
 - Then we move to the `Configuration` Tab. Here are the options that I gave to my Decision Tree.
 
-<img src="unico4.png" title="" alt="16" data-align="center">
+<img src="images/unico4.png" title="" alt="16" data-align="center">
 
 <br>
 
-<img src="unico5.png" title="" alt="17" data-align="center">
+<img src="images/unico5.png" title="" alt="17" data-align="center">
 
 <br>
 
-<img src="unico6.png" title="" alt="18" data-align="center">
+<img src="images/unico6.png" title="" alt="18" data-align="center">
 
 <br>
 
@@ -330,7 +330,7 @@ The **Software** used is:
 
 <br>
 
-<img src="unico7.png" title="" alt="19" data-align="center">
+<img src="images/unico7.png" title="" alt="19" data-align="center">
 
 <br>
 
@@ -342,7 +342,7 @@ The **Software** used is:
   
   - > I set `1` for karate and `2` for boxing.
 
-<img src="unico8.png" title="" alt="19" data-align="center">
+<img src="images/unico8.png" title="" alt="19" data-align="center">
 
 <br>
 <br>
@@ -355,7 +355,7 @@ The **Software** used is:
 
 - Open Weka Explorer and load the `sports.arff` file we created above:
 
-<img src="weka1.png" title="" alt="20" data-align="center">
+<img src="images/weka1.png" title="" alt="20" data-align="center">
 
 <br>
 
@@ -365,13 +365,13 @@ The **Software** used is:
 
 <br>
 
-<img src="weka2.png" title="" alt="21" data-align="center">
+<img src="images/weka2.png" title="" alt="21" data-align="center">
   <br>
   <br>
 
 <br>
 
-<img title="" src="weka3.png" alt="22" data-align="center" width="250">
+<img title="" src="images/weka3.png" alt="22" data-align="center" width="250">
 
 <br>
 
@@ -383,11 +383,11 @@ The **Software** used is:
 
 <br>
 
-<img title="" src="weka4.png" alt="23" data-align="center" width="973">
+<img title="" src="images/weka4.png" alt="23" data-align="center" width="973">
 
 <br>
 
-<img src="weka5.png" title="" alt="24" data-align="center">
+<img src="images/weka5.png" title="" alt="24" data-align="center">
 
 <br><br>
 
@@ -397,7 +397,7 @@ The **Software** used is:
 
 <br>
 
-<img title="" src="weka6.png" alt="25" data-align="center" width="465">
+<img title="" src="images/weka6.png" alt="25" data-align="center" width="465">
 
 <br>
 
@@ -409,7 +409,7 @@ The **Software** used is:
 
 - Now we can load the `.txt` file into the Unico window we left intact a while ago. 
 
-<img title="" src="weka7.png" alt="26" data-align="center" width="605">
+<img title="" src="images/weka7.png" alt="26" data-align="center" width="605">
 
 <br>
 
@@ -419,7 +419,7 @@ The **Software** used is:
 
 - And save the file as `sports.ucf`.
 
-<img title="" src="unico9.png" alt="27" data-align="center" width="629">
+<img title="" src="images/unico9.png" alt="27" data-align="center" width="629">
 
 <br>
 
@@ -429,7 +429,7 @@ The **Software** used is:
 
 - Now we can go back to Unicleo and load the `sports.ucf` file to the `MLC`. 
 
-<img title="" src="final1.png" alt="28" data-align="center" width="392">
+<img title="" src="images/final1.png" alt="28" data-align="center" width="392">
 
 <br>
 
@@ -439,7 +439,7 @@ The **Software** used is:
 
 - > Here as we can see the `MLC0_SRC` changes to `1` when the board mimics the action for `karate`.
 
-<img title="" src="final2.png" alt="29" data-align="center" width="410">
+<img title="" src="images/final2.png" alt="29" data-align="center" width="410">
 
 <br>
 
@@ -449,7 +449,7 @@ The **Software** used is:
 
 - And here as we can see the `MLC0_SRC` changes to `2` when the board mimics the action for `boxing`.
 
-<img title="" src="final3.png" alt="30" data-align="center" width="412">
+<img title="" src="images/final3.png" alt="30" data-align="center" width="412">
 
 ---
 
@@ -457,15 +457,11 @@ The **Software** used is:
   
   <br>
   
-  > 
-  > 
   > [<center> Machine Learning Core LSM6DSOX Demonstration || ISCA Lab</center>](https://www.youtube.com/watch?v=m6ylfVGBezo)
-  > 
   > 
   > <br>
   > 
-  > 
-  > [![test](https://raw.githubusercontent.com/harrkout/Machine-Learning-Core-LSM6DSO-X/main/6_6.JPG)](https://www.youtube.com/watch?v=m6ylfVGBezo)
+  > [![test](https://raw.githubusercontent.com/harrkout/Machine-Learning-Core-STM-MEMS/main/images/6_6.JPG?token=GHSAT0AAAAAABUG4U3MSWMC3VRGYDIKVXNQYYHWNRA)](https://www.youtube.com/watch?v=m6ylfVGBezo)
 
 ##### <center> This concludes this demo.
 
