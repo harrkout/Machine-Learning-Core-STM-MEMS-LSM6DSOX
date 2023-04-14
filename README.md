@@ -119,7 +119,6 @@ for this project due to its portability, LoRaWan Connectivity and low
 battery consumption.
 
 <img src="images/1_1.JPG" style="width:2.42708in;height:2.06944in" />**[B-L072Z-LRWAN1](https://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html)  
-**
 
 ## **X-NUCLEO-IKS01A3**
 
@@ -135,7 +134,6 @@ temperature sensor.
 The X-NUCLEO-IKS01A3 interfaces with the STM32 microcontroller via the
 I²C pin, and it is possible to change the default I²C port.
 
-**  
   
   
 [**X-NUCLEO-IKS01A3  **](https://www.st.com/en/ecosystems/x-nucleo-iks01a3.html)
@@ -160,14 +158,12 @@ STEVAL-MKI197V1
 
 ## **Connection between B-L072Z-LRWAN1 and X-NUCLEO-IKS01A3**
 
-**  
-**
 
 First, the **X-NUCLEO-IKS01A3** needs to be connected to the Arduino R3
 pinouts of **B-L072Z-LRWAN1**. This gives the option to connect the
 **STEVAL-MKI197V1** to the DIL24 socket on top of the Nucleo extender.
 
-<img src="images/4_4.JPG" style="width:4.32222in;height:5.90625in" />
+<img src="images/4_4.jpg" style="width:4.32222in;height:5.90625in" />
 
 ## **Connection between X-NUCLEO-IKS01A3 and STEVAL-MKI197V1**
 
@@ -197,8 +193,7 @@ M_INT2_0 on pin D2, in case a change needs to be made in the schematic.
 
 **After these changes, the LSM6DSOX sensor will be enabled.**
 
-**  
-**<img src="images/6_6.JPG" style="width:5.025in;height:2.97083in" />
+<img src="images/6_6.JPG" style="width:5.025in;height:2.97083in" />
 
 # **Firmware and Software**
 
@@ -329,7 +324,7 @@ Weka.[\[](https://en.wikipedia.org/wiki/Weka_(machine_learning)#cite_note-5)<u>5
 Another important area that is currently not covered by the algorithms
 included in the Weka distribution is sequence modeling.
 
-# **Implementation **
+# Implementation 
 
 ## **STM32CubeIDE**
 
@@ -393,8 +388,7 @@ According to the documentation of the algorithm:
 -   **8 = Jogging/Running**
 
 <img src="images/unicleo5.png"
-style="width:5.18073in;height:3.92823in" />**  
-**
+style="width:5.18073in;height:3.92823in" />* 
 
 Before an algorithm can be selected, ***Start*** must be selected on the
 main window, to activate the sensor. After that, the sensor will begin
@@ -421,7 +415,7 @@ a file for said activity.*
 style="width:3.86528in;height:2.61597in" />*Here, motions will be
 monitored for approximately 1 minute and saved in a dataset file
 **karate.csv**.  
-*
+
 
 The same steps will be followed for the dataset ***boxing.csv .***
 
@@ -485,7 +479,7 @@ Select the ***Classify Tab*** and then ***Choose*** on the
 The ***Cross-Validation Folds*** option was set on 10, as default, since
 it gives an approximate 98% result.
 
-<img src="images/weka2.png" style="width:5.64306in;height:4.24375in" /><img src="images/image29.png" style="width:2.225in;height:3.79167in" />
+<img src="images/weka2.png" style="width:5.64306in;height:4.24375in" />
 
 <img src="images/weka3.png" style="width:6.1437in;height:3.36458in" />The
 ***Decision Tree*** has been generated, but in order to load it into
@@ -507,11 +501,9 @@ left intact a while ago.
 And save the file as ***sports.ucf***.
 
 <img src="images/unico_mlc.png" style="width:2.92708in;height:4.09653in" />
-\Now the **sports.ucf** file can be loaded into **Unicleo** in the **MLC**
+Now the **sports.ucf** file can be loaded into **Unicleo** in the **MLC**
 (Machine Learning Core) option.
 
-**  
-**
 <img src="images/final1.png" style="width:2.48819in;height:3.43472in" />
 
 Here the changes can be seen as the value changes to **0x01** in
@@ -608,7 +600,7 @@ MLC Source Register ***0x70 MLC_SRC*** values in Unicleo:
 -   **0x04 -\>** Value for the board falling from a **Low Altitude**
 
 -   **0x08 -\>** Value for the board falling from a **High Altitude  
-    **
+    
 
 [**Falling Detection with Machine Learning Core STM MEMS Sensor LSM6DSOX
 \|\| ISCA Lab** \[11\]](\l)
@@ -678,10 +670,6 @@ style="width:2.64582in;height:4.70369in" />
 
 <img src="images/hub.svg" style="width:4.18512in;height:3.13697in"
 alt="A picture containing text, circuit, electronics Description automatically generated" />
-
-<img src="images/hub_ports.png" style="width:4.18512in;height:3.13697in"
-alt="A picture containing text, circuit, electronics Description automatically generated" />
-
 
 -   WL55JCx + SensorHubV3 + MKI197v1
 
