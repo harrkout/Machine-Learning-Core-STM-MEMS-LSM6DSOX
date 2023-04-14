@@ -1,477 +1,562 @@
-## <center>README
-<br>
 
-<center>This report demonstrates how to use the LSM6DSOX Machine Learning Sensor in combination with the B-L072Z-LRWAN1 and the X-NUCLEO-IKS01A3, create a Decision Tree with Weka and use it to get feedback from the actions performed.</center>
+# Machine Learning Core with STM MEMS Sensor LSM6DSOX
 
-<br>
+­­
 
----
+**Machine Learning Core with STM MEMS**
 
-#### <center> Hardware that was used in this project:
+**Sensor LSM6DSOX**
 
-| <center>Board</center>          | <center> Extender</center>        | <center>Adapter</center>             |
-| ------------------------------- | --------------------------------- | ------------------------------------ |
-| <center>B-L072Z-LRWAN1</center> | <center>X-NUCLEO-IKS01A3</center> | <center>MKI197V1 (LSM6DSOX)</center> |
+Author: Harry Koutsourelakis
 
-</center>
-<br>
+V9.0
 
----
+14 Sep 2022
 
-- *Getting the Firmware and Software needed*:
+**Abstract**
 
-The **Firmware** that was used is the [X-CUBE-MEMS1 Firmware Package.](http://github.com/STMicroelectronics/X-CUBE-MEMS1/tree/main/Projects/NUCLEO-L073RZ/Examples/IKS01A3/DataLogExtended/STM32CubeIDE)
+This work presents the methodology to develop AI-based applications for Internet-of-Things environments, such as detection of a falling object by using the machine learning core inside the STM Mems Sensor LSM6DSOX and the toolchain Unico, Unicleo and WEKA.
 
-**Note**: Inside the repository folder **Projects**, the only available options are Nucleo-based projects. The ones I tested though, work just fine with other ST boards, since we are using one of the **Extenders** that are compatible: (**IKS01A1/IKS01A2/IKS01A3**).
+# Table of Contents
 
-The project linked above needs to be programmed and flashed with the STM32CubeIDE program, since it does not include a CubeMX project.
+[**Abstract**](#_Toc119493230)
 
----
+[1 **Equipment** 4](#_Toc119493231)
 
-The **Software** used is:
+[1.1 **B-L072Z-LRWAN1** 4](#_Toc119493232)
 
-1. **Unicleo-GUI**: Demonstrates the functionality of ST sensors and algorithms
-2. **Unico**: Needed to create the .ucf file that will be loaded after the Decision Tree is created.
-3. **Weka**: Machine Learning Tool used for Data Mining tasks.
+[1.2 **X-NUCLEO-IKS01A3** 5](#_Toc119493233)
 
----
+[1.3 **STEVAL-MKI197V1** 6](#_Toc119493234)
 
-<br>
+[2 **Hardware Synthesis** 7](#_Toc119493235)
 
-#### <center>**Hardware Combination and Specifications.**
+[2.1 **Connection between B-L072Z-LRWAN1 and X-NUCLEO-IKS01A3** 7](#_Toc119493236)
 
-<br>
+[2.2 **Connection between X-NUCLEO-IKS01A3 and STEVAL-MKI197V1** 8](#_Toc119493237)
 
-<center>1. B-L072Z-LRWAN1</center>
+[2.3 **LSM6DSOX Sensor Initialization** 8](#_Toc119493238)
 
-<img title="" src="images/1_1.JPG" alt="1" data-align="center" width="553">
+[3 **Firmware and Software** 9](#_Toc119493239)
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+[3.1 **Firmware** 9](#_Toc119493240)
 
-<br>
+[3.2 **Unicleo-GUI** 10](#_Toc119493241)
 
-<br>
+[3.3 **Unico-GUI** 10](#_Toc119493242)
 
-<br>
+[3.4 **Weka** 11](#_Toc119493243)
 
-<center>2. X-NUCLEO-IKS01A3</center>
+[4 **Implementation** ](#_Toc119493244)
 
-<br>
+[4.1 **STM32CubeIDE** 12](#_Toc119493245)
 
-<img title="" src="images/2_2.JPG" alt="2" data-align="center" width="551">
+[4.2 **Unicleo-GUI** 12](#_Toc119493246)
 
-<br>
+[4.3 **Machine Learning Core Example** 15](#_Toc119493247)
 
-<br>
+[4.4 **Unico-GUI** 18](#_Toc119493248)
 
-<center>3. MKI197V1 (LSM6DSOX)</center>
+[4.5 **Weka** 21](#_Toc119493249)
 
-<br>
+[4.6 **Video Demonstration** 27](#_Toc119493250)
 
-<img title="" src="images/3_3.JPG" alt="3" data-align="center" width="554"><br>
+[5 **Falling**** Detection ****Algorithm** 28](#_Toc119493251)
 
-<br>
+[5.1 **Creation of Falling Detection Datasets** 28](#_Toc119493252)
 
-<br>
+[5.2 **Project Equipment** 29](#_Toc119493253)
 
-<br>
+[5.3 **Video Demonstration** 29](#_Toc119493254)
 
-<br>
+[5.4 **Possible Real-World Use Scenarios** 30](#_Toc119493255)
 
-<br>
+[6 **Falling Detection Algorithm With NUCLEO-WL55JCx and SHUBv3** 31](#_Toc119493256)
 
-<br>
+[6.1 **Equipment** 32](#_Toc119493257)
 
-<br>
+[6.2 **Decision Tree Generation** 34](#_Toc119493258)
 
-<br>
+[6.2.1 **K-fold Cross-Validation** 34](#_Toc119493259)
 
-<br>
+[6.2.2**J48 Algorithm (also known as C4.5)** 34](#_Toc119493260)
 
-<br>
+[6.3 **Performance** 36](#_Toc119493261)
 
-<br>
+[6.4 **Video Demonstration** 36](#_Toc119493262)
 
-<br>
+[7 **References** 37](#_Toc119493263)
 
-<br>
+# 1 **Equipment**
 
-<br>
+The equipment used in this project consists of the board [B-L072Z-LRWAN1](https://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html), the [X-NUCLEO-IKS01A3 extender and the STEVAL-MKI197V1. The IKS01A3 is the extension board that provides the DIL24 socket that the MKI197V1 (Machine Learning Core LSM6DOX) connects to in order to communicate with the board.](https://www.st.com/en/ecosystems/x-nucleo-iks01a3.html)
 
-<br>
+## 1.1 **B-L072Z-LRWAN1**
 
-<br>
+The **B-L072Z-LRWAN1** [[1]](#_References) board was chosen specifically for this project due to its portability, LoRaWan Connectivity and low battery consumption.
 
-<br>
+![Shape1](RackMultipart20230414-1-bpee3o_html_cbf09e657ca6919c.gif)
 
-<br>
+Specifications
 
-- **First we need to combine the X-NUCLEO-IKS01A3 on the Arduino R3 pinouts of B-L072Z-LRWAN1**  
+![Shape2](RackMultipart20230414-1-bpee3o_html_9a57e65a74cd3efb.gif)
+- CMWX1ZZABZ-091 LoRa®/Sigfox™ module (Murata)
+  - Embedded ultra-low-power STM32L072CZ MCU, based on Arm® Cortex®-M0+ core, with 192 Kbytes of Flash memory, 20 Kbytes of RAM, 20 Kbytes of EEPROM
+  - Frequency range: 860 MHz - 930 MHz
+  - USB 2.0 FS
+  - 4-channel,12-bit ADC, 2 × DAC
+  - 6-bit timers, LP-UART, I2C and SPI
+  - Embedded SX1276 transceiver
+  - LoRa®, FSK, GFSK, MSK, GMSK, and OOK modulations (+ Sigfox™ compatibility)
+  - Programmable bit rate up to 300 kbit/s
+  - High sensitivity: down to -137 dBm
+  - Bullet-proof front end: IIP3 = -12.5 dBm
+  - 89 dB blocking immunity
+  - Low Rx current of 10 mA, 200 nA register retention
+  - Fully integrated synthesizer with a resolution of 61 Hz
+  - Built-in bit synchronizer for clock recovery
+  - Sync word recognition
+  - Preamble detection
+  - LoRaWAN™ Class A certified
+- SMA and U.FL RF interface connectors
+- Including 50-ohm SMA RF antenna
+- 7 LEDs:
+  - 4 general-purpose LEDs
+  - 5 V power LED
+  - ST-LINK-communication LED
+  - Fault-power LED
+- 1 user and 1 reset push-buttons
+- On-board ST-LINK/V2-1 debugger/programmer with USB re-enumeration capability: mass storage, Virtual COM port, and debug port
+- Arduino™ Uno V3 connectors
+- Board power supply through the USB bus or external VIN/3.3 V supply voltage or batteries
+- 3 × AAA-type battery holder for standalone operation
+- Support of a wide choice of Integrated Development Environments (IDEs) including IAR™, Keil®, GCC-based IDEs, Arm® Mbed™
 
-<br>
+[**B**](https://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html) ![](RackMultipart20230414-1-bpee3o_html_ff92ce00dadd1503.jpg)
+[-L072Z-LRWAN1](https://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html)
 
-<img title="" src="images/4_4.jpg" alt="4" data-align="center" width="573">
+![Picture 240](RackMultipart20230414-1-bpee3o_html_acccf2251549b0a0.gif)
 
-<br>
+## 1.2 **X-NUCLEO-IKS01A3**
 
-<br>
+The [X-NUCLEO-IKS01A3](https://www.st.com/en/ecosystems/x-nucleo-iks01a3.html)[[2]](#_References)is a is a motion MEMS and environmental sensor evaluation board system. It is compatible with the Arduino UNO R3 connector layout and features the LSM6DSO 3-axis accelerometer + 3-axis gyroscope, the LIS2MDL 3-axis magnetometer, the LIS2DW12 3-axis accelerometer, the HTS221 humidity and temperature sensor, the LPS22HH pressure sensor, and the STTS751 temperature sensor.
 
-<br>
+The X-NUCLEO-IKS01A3 interfaces with the STM32 microcontroller via the I²C pin, and it is possible to change the default I²C port.
 
-<br>
+![Shape3](RackMultipart20230414-1-bpee3o_html_1987979f4ad7d1b0.gif) ![Shape4](RackMultipart20230414-1-bpee3o_html_eda9612467a44253.gif)
 
-<br>
+- LSM6DSO: MEMS 3D accelerometer (±2/±4/±8/±16 g) + 3D gyroscope (±125/±250/±500/±1000/±2000 dps)
+- LIS2MDL: MEMS 3D magnetometer (±50 gauss)
+- LIS2DW12: MEMS 3D accelerometer (±2/±4/±8/±16 g)
+- LPS22HH: MEMS pressure sensor, 260-1260 hPa absolute digital output barometer
+- HTS221: capacitive digital relative humidity and temperature
+- STTS751: Temperature sensor (–40 °C to +125 °C)
+- DIL 24-pin socket available for additional MEMS adapters and other sensors
 
-<br>
+- Free comprehensive development firmware library and example for all sensors compatible with STM32Cube firmware
+- I²C sensor hub features on LSM6DSO available
+- Compatible with STM32 Nucleo boards
+- Equipped with Arduino UNO R3 connector
+- RoHS compliant
+- WEEE compliant
 
-<br>
+Specifications
 
-<br>
 
-<br>
+[ **X-NUCLEO-IKS01A3**
+](https://www.st.com/en/ecosystems/x-nucleo-iks01a3.html)
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_c820c66e75c30e63.jpg)
 
-<br>
+## 1.3 **STEVAL-MKI197V1**
 
-<br>
+The [STEVAL-MKI197V1](https://www.st.com/en/evaluation-tools/steval-mki197v1.html)[[3]](#_References)is an adapter board designed to facilitate the evaluation of MEMS devices in the LSM6DSO product family. The board offers an effective solution for fast system prototyping and device evaluation directly within the user's own application.
 
-<br>
+![Shape6](RackMultipart20230414-1-bpee3o_html_63f12b188951f79b.gif) ![Shape5](RackMultipart20230414-1-bpee3o_html_4f9832c05d945c2c.gif)
 
-<br>
+Specifications
 
-<br>
+- Complete LSM6DSOX pinout for a standard DIL 24 socket
+- Fully compatible with STEVAL-MKI109V3 motherboard
+- Changing the resistor settings is also compatible with the STEVAL-MKI109V2 motherboard
+- WEEE compliant
+- RoHS compliant
 
-<br>
 
-<br>
+ STEVAL-MKI197V1
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_29007e903655a0d3.jpg)
 
-<br>
+# 2 **Hardware Synthesis**
 
-<br>
+## 2.1 **Connection between**  **B-L072Z-LRWAN1 and**** X-NUCLEO-IKS01A3**
 
-<br>
+First,the **X-NUCLEO-IKS01A3** needs to be connected totheArduinoR3 pinoutsof **B-L072Z-LRWAN1**. This gives the option to connect the **STEVAL-MKI197V1** to the DIL24 socket on top of the Nucleo extender.
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_a8f7edb458e6c93e.jpg)
 
-<br>
+## 2.2 **Connection between**  **X-NUCLEO-IKS01A3 and**  **STEVAL-MKI197V1**
 
-<br>
+Next, the **STEVAL-MKI197V1** must be connected on the **DIL24 Socket** of the **X-NUCLEO-IKS01A3**.
 
-<br>
+**IMPORTANT** :MakesuretheSTLogoonBOTHtheextenderandtheadapterarealigned,otherwisetheadapterwilloverheatandmost likely lead to short-circuit.
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_d965206a62c8761a.jpg)
 
-- **Next we add the MKI197V1 on the DIL24 Socket of the IKS01A3**
+## 2.3 ![Shape8](RackMultipart20230414-1-bpee3o_html_c6a4cdcc9ba1e860.gif) **LSM6DSOX Sensor Initialization**
 
-> **IMPORTANT**: Make sure the ST Logo on BOTH the extender and the adapter are aligned, otherwise the adapter will overheat and most likely circuit itself.        <img title="" src="images/5_5.JPG" alt="5" data-align="center" width="513">
+The **LSM6DSOX** (Machine Learning Core) sensor on the **MKI197V1** does not communicate out of the box with the **IKS01A3**. The **LSM6DSOX** sensor starts in **I3C** [[4]](#_References) mode (also known as SenseWire) because of a level shifter on the **IKS01A3** that keeps the INT1 of the **LSM6DSOX** high, this results to **I3C** initialization by default (as described in theDatasheet).
 
-<br>
+The only solution that was found was to bypass the INT1 and route the INT2 in its place. That can be done by connecting the A5 pin of the IKS01A3 to GND with a wire and also change the JP6 Jumper from the default 5-6 to 13-14. The change of the Jumper supposedly setsthe M\_INT2\_0 on pin D2, in case a change needs to be made in the schematic.
 
-- **Now for the final step**, we need to enable the LSM6DSOX sensor on the MKI197V1. The LSM6DSOX sensor starts in I3C mode because of a level shifter on the IKS01A3 that keeps the INT1 of the LSM6DSOX high, this results to I3C initialization by default (as described in the Datasheet). The only solution that I found was to bypass the INT1 and route the INT2 in its place. That can be done by connecting the A5 pin of the IKS01A3 to GND with a wire and also change the JP6 Jumper from the default 5-6 to 13-14. The change of the Jumper supposedly sets the M_INT2_0 on pin D2, in case a change need to be made in the schematic.
-   After these changes, the LSM6DSOX should be enabled.
+**After these changes, the LSM6DSOX sensor will be enabled.**
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_f31b2af7cd2932cc.jpg)
 
-<img title="" src="images/6_6.JPG" alt="6" data-align="center" width="570">
+# 3 **Firmware and Software**
 
-<br>
+## 3.1 **Firmware**
 
-#### <center> **Now we are ready to begin.**
+The Firmware that was used is [the X-CUBE-MEMS1 Firmware Package](https://github.com/STMicroelectronics/X-CUBE-MEMS1)[[5]](#_References).
 
----
+The X-CUBE-MEMS1 expansion software package for STM32Cube runs on the STM32 and includes drivers that recognize the sensors and collect temperature, humidity, pressure, and motion data. The expansion is built on STM32Cube software technology to ease portability across different STM32 microcontrollers. The software comes with a sample implementation of the drivers running on the X-NUCLEO-IKS01A2/X-NUCLEO-IKS01A3/X-NUCLEO-IKS02A1 expansion boards connected to a featured STM32 Nucleo development board. The software is also available on GitHub, where the users can signal bugs and propose new ideas through Issues and Pull requests tabs.
 
-<br>
+**Note** :Insidetherepositoryfolder **Projects** ,theonlyavailableoptionsareNucleo-basedprojects.Theonesthat were testedthough,workjustfinewith otherST boards, since one of the **Extenders** that are compatible ( **IKS01A1/IKS01A2/IKS01A3** ), are used.
 
-- First we need to program and flash our board. This needs to be done with STM32CubeIDE. 
+## 3.2[**Unicleo-GUI**](https://www.st.com/en/development-tools/unicleo-gui.html)
 
-<img title="" src="images/ide.png" alt="7" data-align="center" width="741">
+**Unicleo-GUI** [[6]](#_References) is a graphical user interface (GUI) for the X-CUBE-MEMS1 and X-CUBE-MEMS-XT1 software expansions and STM32Nucleo expansion boards (X-NUCLEO-IKS01A1, X-NUCLEO-IKS01A2, X-NUCLEO-IKS01A3 and X-NUCLEO-IKS02A1). The main objective of this application is to demonstrate the functionality of ST sensors and algorithms.
 
-<br>
+Unicleo-GUI is able to cooperate with firmware created by AlgoBuilder application and display data coming from the running firmware.
 
-- Now let's check if our sensor works as intented in Unicleo.
-  
-  - > This is the interface of Unicleo. If our board is connected via USB (ST Link) then the Serial Port should be automatically selected, mine for example is COM5. *We select* `Connect`.
-    
-    <img title="" src="images/unicleo1.png" alt="71" data-align="center" width="717">
+The application is also able to establish Bluetooth connection with BLE connectivity-equipped devices such as SensorTile (STEVAL-STLKT01V1), BlueCoin (STEVAL-BCNKT01V1), and STM32 Nucleo with X-NUCLEO-IDB05A1 expansion board, BlueTile(STEVAL-BCN002V1B)orWESU1(STEVAL-WESU1)andreaddatafromvariousdevicecharacteristics.Thesupportedfirmware forthese devices can be found at FP-SNS-ALLMEMS1, FP-SNS-ALLMEMS2, FP-SNS-MOTENV1, FP-SNS-MOTENVWB1, STSW-BLUETILE-DKand STSW-WESU1.
 
-<br>
+## 3.3[**Unico-GUI**](https://www.st.com/en/development-tools/unico-gui.html)
 
-- The sensors list will pop up and show all available sensors. Choose the LSM6DSOX (DIL24).
-  
-  - > Note that there is also another sensor named LSM6DSO, that is the exaxt same sensor but on the extender IKS01A3 and does not contain the Machine Learning Core. 
-    
-    <img title="" src="images/unicleo1_2.png" alt="72" data-align="center" width="656">
+**Unico-GUI** [[7]](#_References)isacomprehensivesoftwarepackagefortheevaluationboardsofallMEMSsensorsavailableinST'sproductportfolio(accelerometers, gyroscopes, magnetometers and environmental sensors).
 
-<br>
+The softwareisacross-platformgraphicaluserinterfaceinteractingwithSTEVAL-MKI109V3(ProfessionalMEMStool)whichisthemotherboard compatible with all ST MEMS adapter boards. It is also possible to run UNICO offline (without the motherboard) forgeneratingconfigurations ofadvanced features likethe Machine LearningCore, Finite StateMachine, and pedometer.
 
-- After `Apply` has been selected, the following window will pop up. It shows the sensors of the IKS01A3 and the MKI197V1 along with their locations.
-  
-  - > On the left we can see the option for the visualization of the available sensors. 
-    
-    <img title="" src="images/unicleo2.png" alt="8" data-align="center" width="620">
+The platform allows quick and easy setup of the sensors, as well as the complete configuration of all the registers and advanced features(such as the Machine Learning Core, Finite State Machine, pedometer, etc.) embedded in the digital output devices. The softwarevisualizes the output of the sensors in both graphical and numeric format, and allows the user to save or generally manage data comingfrom the device.
 
-<br>
+Examplesoftoolswhichsupporttheadvancedfeaturesare thefollowing:FIFOtoolthatallowstheuser tobufferdatawithahighlevel of flexibility and burst the significant data out when needed; Finite State Machine tool that allows the user to configure the statemachines, test their functionality and validate the program; Machine Learning Core tool that allows the user to configure a machinelearning core starting from the management of data patterns and labeling to setting and generating the configuration file to run thealgorithm; FFT tool that allows visualizing the Fast Fourier Transform of the output data; Pedometer tool that allows the user toconfigureand test the pedometer embedded in the device including an offline post-processing analysis;
 
-- If `MLC` is chosen on the left, we will be greeted by the following window. On the first block, named `Sensor Configuration`, a custom .ucf dataset can be loaded. Below that are some `Example algorithms` that if chosen they will be loaded and according to the motion of the sensor, a different value will be shown on the `MLC Source Registers` bellow.
-  
-  - > The values will be displayed on the blocks in the right of `MLC0_SRC`.
-    
-    <img title="" src="images/unicleo3.png" alt="9" data-align="center" width="327">
+## 3.4[**Weka**](https://www.cs.waikato.ac.nz/ml/index.html)
 
-<br>
+**Weka** [[8]](#_References)containsacollectionofvisualizationtoolsandalgorithmsfor[dataanalysis](https://en.wikipedia.org/wiki/Data_analysis)and[predictivemodeling](https://en.wikipedia.org/wiki/Predictive_modeling),togetherwithgraphicaluserinterfacesfor easy access tothese functions.[[](https://en.wikipedia.org/wiki/Weka_(machine_learning)#cite_note-%3A0-1)1]. Advantages of Wekainclude:
 
-- For example, here are the specifics of the `Activity Recognition (Wrist)` algorithm.
-  
-  - > According to the documentation
-    
-    - 1 = Stationary/Other
-    
-    - 4 = Walking/FastWalking
-    
-    - 8 = Jogging/Running
-      
-      <img src="images/unicleo4.png" title="" alt="10" data-align="center">
-      
-      <br>
+- Portability,sinceitisfullyimplementedinthe[Javaprogramminglanguage](https://en.wikipedia.org/wiki/Java_programming_language)andthusrunsonalmostanymoderncomputingplatform.
+- A comprehensive collection of data preprocessing and modeling techniques.
+- Ease of use due to its graphical user interfaces.
 
-<br>
+Wekasupportsseveralstandard[datamining](https://en.wikipedia.org/wiki/Data_mining)tasks,morespecifically,datapreprocessing,[clustering](https://en.wikipedia.org/wiki/Data_clustering),[classification](https://en.wikipedia.org/wiki/Statistical_classification),[regression](https://en.wikipedia.org/wiki/Regression_analysis),[visualization](https://en.wikipedia.org/wiki/Data_visualization),and[feature selection](https://en.wikipedia.org/wiki/Feature_selection).
 
-- Before we can select the algorithm we need to select `Start` on the main window. That way we initialize the sensors to begin monitoring.
+Input to Weka is expected to be formatted according the Attribute-Relational File Format and with the filename bearing the **.arff** extension.AllofWeka'stechniquesarepredicatedontheassumptionthatthedataisavailableasoneflatfileorrelation,whereeachdatapoint is described by a fixed number of attributes (normally, numeric or nominal attributes, but some other attribute types are alsosupported). Weka provides access to [SQ](https://en.wikipedia.org/wiki/SQL)L [databases](https://en.wikipedia.org/wiki/Database)using [Java Database Connectivity](https://en.wikipedia.org/wiki/Java_Database_Connectivity) and can process the result returned by a databasequery. Weka provides access to [deep learning](https://en.wikipedia.org/wiki/Deep_learning) with [Deeplearning4j](https://en.wikipedia.org/wiki/Deeplearning4j).[[](https://en.wikipedia.org/wiki/Weka_(machine_learning)#cite_note-4)4] It is not capable of multi-relational data mining, but there isseparate software for converting a collection of linked database tables into a single table that is suitable for processing using Weka.[[](https://en.wikipedia.org/wiki/Weka_(machine_learning)#cite_note-5)5]Anotherimportantarea thatis currentlynotcovered bythe algorithmsincluded intheWeka distributionis sequencemodeling.
 
-<br>
+# 4 **Implementation**
 
-<br>
-  <img src="images/unicleo5.png" title="" alt="11" data-align="center">
+## 4.1 **STM32CubeIDE**
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_7362cb28ff621b41.jpg)First,the program needs to be flashed on the board. Thisneeds to be donewith **STM32CubeIDE**.
 
-- Now, instead of using one of the example algorithms, I will create my own `.ucf` file. To do that, I need to log data based on each action that I want to add to the Decision Tree. The log will be created in Unicleo (in `.txt/.csv` format) and then I'll use Unico to create the `.ucf` file. Then I'll load the `.ucf` file to Weka to create the Decision Tree and load it back to Unicleo.
-  
-  <br>
+## 4.2 **Unicleo-GUI**
 
-- In order to log the data, the `Datalog` option needs to be chosen on the left on the main window. Next choose the sensors that you want to log into a file from both `Data` and `Datalog period source` and set a file for said activity. Here I will monitor some actions for 1 minute and save them in a file `karate.csv`. 
-  
-  <br>
+After the program was flashed to the board, the sensors are initialized and ready to be used.
 
-<img title="" src="images/unicleo6.png" alt="12" data-align="center">
+This is the interface of **Unicleo**. If the board is connected via USB (ST Link) then the Serial Port
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_a235300dc49e4db8.jpg)should be automatically selected,mineforexampleisCOM5. **S** _ **elect Connect** _.
 
-- I will follow the same steps for the dataset `boxing.csv`.
-  
-  <br>
-  <img src="images/unicleo7.png" title="" alt="13" data-align="center">
+The sensors list will pop up and show all available sensors. Choose the **LSM6DSOX (DIL24)**.
 
-<br>
+**Note**** that** there is also another sensor named LSM6DSO, that is the exact same sensor, but on the extender IKS01A3 and does not contain the Machine Learning Core.
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_acf24bb9fcb75aad.jpg)
 
-- Now *Unico* needs to be used in order to create a file that can be read by Weka.
-  
-  - > Since Unico cannot be used with the shield IKS01A3, I will have to use it in offline mode. That means that it will not connect with my board, but I will be able to load my datasets in order to extract an `.arff` file.
-  
-  - > > Select in the `iNemo Inertial Modules` the `STEVAL-MKI197V1 (LSM6DSOX)` sensor and diselect the `Communication with the motherboard` option. Then click on `Select Device`.
-    
-    <br>
-    <img src="images/unico1.png" title="" alt="14" data-align="center">
+After **Apply** has been selected, the following window will pop up. It shows the sensors of the IKS01A3 and the MKI197V1 along with their locations on the board **.**
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_5ee512d5fd4a3ae0.jpg)On the left the option for the visualization of the available sensors can be seen.
 
-<br>
+If _ **MLC** _ is chosen from the left, the user will be greeted by the following window. On the first block, named _ **Sensor Configuration** _, a custom _ **.ucf** _ dataset can be loaded. Bellow that are some _ **Example Algorithms** _, that, if chosen, they will be loaded and cording to the motion of the sensor, a different value will be shown on the _ **MLC Source Registers** _ bellow.
 
-- After the main window shows up, select `MLC` on the left and the Machine Learning Core window will open.
+![](RackMultipart20230414-1-bpee3o_html_4fd838f6e01908d.png)The values will be displayed on the blocks on the right of _ **MLC0\_SRC** _.
 
-<img src="images/unico2.png" title="" alt="141" data-align="center">
+## 4.3 **Machine Learning Core Example**
 
-<br>
+For example, here are the specifics of the _**Activity Recognition (Wrist)**_ algorithm.
 
-<br><br>
+According to the documentation of the algorithm:
 
-- Now we load each one of the datasets and set the `Class (Label)` as `boxing` for the boxing dataset and `karate` for the karate dataset. 
+- **1 = Stationary/Other**
+- **4**** = ****Walking/Fast Walking**
 
-<img src="images/unico3.png" title="" alt="15" data-align="center">
+- **8 = Jogging/Running**
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_d12a3dadae254d9a.jpg)
 
-<br>
+Before analgorithm can be selected, _ **Start** _ must be selected onthemainwindow, to activate the sensor.After that, the sensor will begin sending feedback.
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_1340bc3d15f01a05.jpg)
 
-<br>
+Now, instead of using one of the example algorithms, a custom _ **.ucf** _ file will be created and used to show the configurations that need to be set. To do that, data must be logged into a dataset based on each action that one wants to add to the Decision Tree. The log will be created in Unicleo (in _ **.txt/ .csv** _ format) and then _ **Unico** _ will be used to create the _ **.ucf** _ file. Then the _ **.ucf** _ file will be loaded to _ **Weka** _ to create _ **Decision Tree** _ and after that it will be loaded back to _ **Unico** _.
 
-- Then we move to the `Configuration` Tab. Here are the options that I gave to my Decision Tree.
+_In order to log the data, the_ _ **Datalog** _ _option needs to be chosen on the left of the main window. Next choose the sensors that you want to log into a file from both_ _ **Data** _ _and_ _ **Datalog period source** _ _ad set a file for said activity._
 
-<img src="images/unico4.png" title="" alt="16" data-align="center">
+![](RackMultipart20230414-1-bpee3o_html_390dd78f05d2982d.jpg)_Here, motions will be monitored for approximately 1 minute and saved in a dataset file_ _ **karate.csv** __._
 
-<br>
+The same steps will be followed for the dataset _ **boxing.csv** _ _ **.** _
 
-<img src="images/unico5.png" title="" alt="17" data-align="center">
+![](RackMultipart20230414-1-bpee3o_html_cfb2f707a53db337.jpg)
 
-<br>
+## 4.4 **Unico-GUI**
 
-<img src="images/unico6.png" title="" alt="18" data-align="center">
+Now_ **Unico** _needstobeusedinordertocreateafilethatcanbereadby_ **Weka** _.
 
-<br>
+SinceUnico cannot be used withthe shield _ **IKS01A3** _, it willhave to be used inoffline mode. That means thatit will not connect with the board, but the datasets will be able to be loaded in order to extract an _ **.arff** _ file.
 
-<br><br><br>
+![](RackMultipart20230414-1-bpee3o_html_41c07e993177a272.jpg)Selectinthe **iNemo**** Inertial ****Modules** the_ **STEVAL-MKI197V1** __**(LSM6DSOX)**_sensoranddeselectthe _ **Communication with**__ **the** __**motherboard** _option.Thenclickon_ **Select**__ **Device** _.
 
-- I chose all the *Signed* options `ACC_X`, `ACC_Y`, `ACC_Z`, `GY_X`, `GY_Y`, `GY_Z` for the `Mean`, `Variance`,  `Energy` and `Peak to Peak` features.
+![](RackMultipart20230414-1-bpee3o_html_d5e43e8f5351379b.png)After the main window shows up, select _ **MLC** _ on the left and the _ **Machine Learning Core** _ [[9]](#_References) window will open.
 
-<br>
+Now each one of the datasets will be loaded and set the _ **Class Label** _ as _ **boxing** _ for the **Boxing** Dataset and **Karate** for the Karate Dataset.
 
-<img src="images/unico7.png" title="" alt="19" data-align="center">
+![](RackMultipart20230414-1-bpee3o_html_9d6edf35e652e64d.png)
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_a8342d45b358853f.png)Then, the _ **Configuration** _ Tab must be selected. Here are the options that were given to the _ **Decision Tree.** _
 
-<br><br>
+The chosen options were all the _ **Signed** _ options _ **ACC\_X, ACC\_Y, ACC\_Z, GY\_X, GY\_Z** _for the _ **Mean** __,_ _ **Variance**__ ,_ _ **Energy** _ _and_ _ **Peak** __**to**__ **Peak** _features.
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_ccbf8d63f5ee2d41.png)
 
-- Here I name a file to save as `.arff` and choose the output that I want to see in the Decision Tree later. 
-  
-  - > I set `1` for karate and `2` for boxing.
+![](RackMultipart20230414-1-bpee3o_html_d74758057bfb9b97.png)
 
-<img src="images/unico8.png" title="" alt="19" data-align="center">
+Save the file as **.arff** and choose the desired output values of the **Decision Tree**.
 
-<br>
-<br>
+- **1** was set for **Karate** and **2** for **Boxing**.
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_1f7abf63ca235975.png)
 
-<br><br>
+## 4.5 **Weka**
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_46cf97b5f440dcbd.png)Open _ **Weka** __ **Explorer** _ and load the **sports.arff** file that was created above:
 
-- Open Weka Explorer and load the `sports.arff` file we created above:
+Select the _ **Classify Tab** _ and then _ **Choose** _ on the _ **Classifier** __ **Block** _ and select the _ **J48** _ in the tree section. The _ **Cross-Validation Folds** _ option was set on 10, as default, since it gives an approximate 98% result.
 
-<img src="images/weka1.png" title="" alt="20" data-align="center">
+![](RackMultipart20230414-1-bpee3o_html_a27c7934742ad8e0.png) ![](RackMultipart20230414-1-bpee3o_html_9dad19c6c832500e.png)
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_d7de328c6c5f3f61.jpg)The _ **Decision Tree** _ has been generated, but in order to load it into _ **Unico** _ to create the _ **.ucf** _ file, the selected text, as seen in the image below (_ **The tree itself** _), needs to be copied and pasted into a _ **.txt** _ file.
 
-<br><br><br>
+![](RackMultipart20230414-1-bpee3o_html_2bbe01988000b5d1.png)
 
-- Select the `Clasify Tab` and then `Choose` on the `Classifier` Block and select the `J48` in the tree section. I let the `Cross-Validation Folds` on 10 as default since it gives a ~98% result. 
+Andtoseethe_ **Decision** __ **Tree** _,right clickonthe _ **Result List** _and select _ **Visualize Tree** _.
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_ac95af09cb85817f.png)
 
-<img src="images/weka2.png" title="" alt="21" data-align="center">
-  <br>
-  <br>
+![](RackMultipart20230414-1-bpee3o_html_2e65155471e368a7.png)Now the **.txt** file can be loaded into the _ **Unico** _ window that was left intact a while ago.
 
-<br>
+And save the file as _ **sports.ucf** _.
 
-<img title="" src="images/weka3.png" alt="22" data-align="center" width="250">
+![](RackMultipart20230414-1-bpee3o_html_e1ee0a4d7a0ddcdb.png)
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_77b254ff3789329c.png)Now the **sports.ucf** file can be loaded into **Unicleo** in the **MLC** (Machine Learning Core) option.
 
-<br><br>
+Here the changes can be seen as the value changes to **0x01** in _ **MLC0\_SRC** _ when the board mimics the action for **Karate**.
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_ac5bbb5a653be640.png)
 
-- The Decision Tree has be generated. But in order to load it into Unico to create our `.ucf` file we need to copy the selected text as in the image below (The tree itself) and paste it into a `.txt` file. 
+And here _ **MLC0\_SRC** _ changes to _ **2** _ when the board mimics the action for **Boxing**.
 
-<br>
+![](RackMultipart20230414-1-bpee3o_html_14b4f590096f31d.png)
 
-<img title="" src="images/weka4.png" alt="23" data-align="center" width="973">
+## 4.6 **Video Demonstration**
 
-<br>
+[Here is a video demonstration of the](https://www.youtube.com/watch?v=m6ylfVGBezo)_ **LSM6DSOX** _ sensor changing value from _1_ to _2_ when it recognizes the different actions.
 
-<img src="images/weka5.png" title="" alt="24" data-align="center">
+[**Machine Learning Core LSM6DSOX Demonstration**  **||**  **ISCA Lab**](https://www.youtube.com/watch?v=m6ylfVGBezo)[[10]](#_References)
 
-<br><br>
+[![](RackMultipart20230414-1-bpee3o_html_c4fa1f36a793ba36.jpg)](https://www.youtube.com/watch?v=m6ylfVGBezo)
 
-<br>
+# 5 **Falling Detection Algorithm**
 
-- And if we want to see the Decision Tree, then right click on the `Result list` and select `Visualize Tree`.
+This example is made for the use-case of detecting the Fall of the device from **Low** or **High altitude**. It demonstrates the change on the registers of the Machine Learning Core of Unicleo when the board is free-falling from both a low and high altitude.
 
-<br>
+In order to create the datasets for both falls, a scenario was created for logging the Data for each case.
 
-<img title="" src="images/weka6.png" alt="25" data-align="center" width="465">
+## 5.1 **Creation of Falling Detection Datasets**
 
-<br>
+**Low and High Altitude Fall**
 
-<br>
+For both the **Low** and **High** altitude fall, 2 datasets were created with the board mimicking each fall, in a safe environment, from a height of approximately 90 centimeters for the **Low** fall and approximately 2.5 meters for the **High** fall.
 
-<br>
+For this scenario, the mechanism that was created consisted of a small rubber rope attached to a thin rope, used to avoid damage from the force of the velocity, whereas the rope was used to simulate the fall by hand.
 
-<br>
+LogsweretakenfromeachscenarioandthenloadedintothesameDecisionTreeinordertohaveasingleconfigurationfordetectingbothFalls at the same time.
 
-- Now we can load the `.txt` file into the Unico window we left intact a while ago. 
+Inthevideoshownbelow,thechangesoftheregistersmaynotbeexactattimes(changingfromLowtoHighwhenfalling)and that is because of the bounce of the board due to the rubber that was used to simulate a safe Fall.
 
-<img title="" src="images/weka7.png" alt="26" data-align="center" width="605">
+Since the algorithm detects the data mostly from the accelerometer, when falling it may detect a greater value, but when the rubberbounces back it simulates the velocity of a Low altitude fall ,and so, it detects it as such. In a real-world scenario, where the board is not in a safe environment, the fall would be one-way and the board wouldn't bounce, since it would most likely not be attached to anything,except maybe a cable.
 
-<br>
+In that scenario, the algorithm would detect only one Fall, and the prediction would be more precise.
 
-<br>
+Although, as most uses of a Machine Learning algorithm, many datasets need to be logged and merged for either the **IDLE** state of the board or the **Falling Detection**. This will lead to a more precise algorithm with a variety of predictions and broader spectrum of detections for different scenarios, angles and falls.
 
-<br>
+## 5.2 **Project Equipment**
 
-- And save the file as `sports.ucf`.
+![](RackMultipart20230414-1-bpee3o_html_31fe78565dcf9416.png)
 
-<img title="" src="images/unico9.png" alt="27" data-align="center" width="629">
+## 5.3 **Video Demonstration**
 
-<br>
+This video demonstrates the different fall detections that the Machine Learning Core predicts from the output of the **Accelerometer** and **Gyroscope** of the **LSM6DSOX** Sensor.
 
-<br><br>
+MLCSourceRegister_ **0x70 MLC\_SRC** _ values in Unicleo:
 
-<br>
+- **0x01 -\>** Value for the board being **IDLE**
+- **0x04 -\>** Value for the board falling from a **Low Altitude**
+- **0x08 -\>** Value for the board falling from a **High Altitude**
 
-- Now we can go back to Unicleo and load the `sports.ucf` file to the `MLC`. 
+[**Falling Detection with Machine Learning Core STM MEMS Sensor LSM6DSOX || ISCA Lab** [11]](#_References)
 
-<img title="" src="images/final1.png" alt="28" data-align="center" width="392">
+[![](RackMultipart20230414-1-bpee3o_html_5212357644af4464.jpg)](https://youtu.be/tSlJXf_sjQc)
 
-<br>
+## 5.4 **Possible Real-World Use Scenarios**
 
-<br>
+A possible scenario of such a use case, such as the one shown above, would be the use of a device with capabilities of **Bluetooth** connectivity.
 
-<br>
+Such a scenario would prove to be a more efficient solution to provide wireless data of a device in a monitoring database or simple real-time feedback to a computer.
 
-- > Here as we can see the `MLC0_SRC` changes to `1` when the board mimics the action for `karate`.
+The device that was available for this demo did not have **Bluetooth** connectivity and so such a scenario was not recorded, but would bare the same results.
 
-<img title="" src="images/final2.png" alt="29" data-align="center" width="410">
+For example, both **Unico** and **Unicleo** have an option to enable **Bluetooth** via their GUI interface. After that, the scenario of logging the data in a remote computer/database could be explored, in the future, for providing information of devices in case of their required position is compromised.
 
-<br>
+# 6 **Falling Detection Algorithm With NUCLEO-WL55JCx and SHUBv3**
 
-<br>
+This section covers the demonstration of a real use-case scenario for the Falling Detection Algorithm that was described previously. The microcontroller that was used is the **NUCLEO-WL55JCx** , in addition with the **Sensor Hub v3** ( **SHUBv3** ) and on top of that is connected the **MKI197v1** adapter board that uses the **LSM6DSOX** sensor to detect any movement of the board and provide output based on the dataset that was given to it.
 
-<br>
+In contrary with the previous demonstration, this board is not in the supported devices of the **X-NUCLEO-MEMS1** package, and thus a custom firmware needed to be developed, to enable communication with the **SHUBv3** and the **MKI197v1** adapter board.
 
-- And here as we can see the `MLC0_SRC` changes to `2` when the board mimics the action for `boxing`.
+To enable the **Machine Learning Core** in this project, the LSM6DSOX had to be included in the project manually, along with the **MLC** option, provided by ST in their [GitHub](https://github.com/STMicroelectronics/STMems_Standard_C_drivers/blob/master/lsm6dsox_STdC/examples/lsm6dsox_mlc.c) repository.
 
-<img title="" src="images/final3.png" alt="30" data-align="center" width="412">
+In order to be able to monitor and log the data for the decision tree, a different firmware was developed, that enabled the **Unicleo-GUI** application and allowed the DataLog of the simulation data.
 
----
+The steps that were followed were exactly the same as shown in the sections 4.1 - 4.5, with the exception that the .ucf file was converted into a header (.h) file and was used in the firmware. That way the output of the **MLC** option was based registers that were given when the Decision Tree was created.
 
-- <u>**Here is a video demostration of the LSM6DSOX sensor changing value from `1` to `2` when it recognises the different actions**</u>.
-  
-  <br>
-  
-  > 
-  > 
-  > [<center> Machine Learning Core LSM6DSOX Demonstration || ISCA Lab</center>](https://www.youtube.com/watch?v=m6ylfVGBezo)
-  > 
-  > 
-  > <br>
-  > 
-  > 
-  > [![test](https://raw.githubusercontent.com/harrkout/Machine-Learning-Core-LSM6DSO-X/main/6_6.JPG)](https://www.youtube.com/watch?v=m6ylfVGBezo)
+## 6.1 **Equipment**
 
-##### <center> This concludes this demo.
+- WL55JCx (x = 1 or 2)
 
----
+![](RackMultipart20230414-1-bpee3o_html_2a41f437adc2f8f9.jpg)
 
-- Some notes on the `Machine Learning Core` and the `Finite State Machine` options on Unicleo/Unico.
-  
-  - > `Finite State Machine` gives only a True or False result, from my understanding. This means that it can only detect whether the sensor is Idle or in a specific Action, it cannot distinguish between different events and actions.
-  
-  - > Whereas the Machine Learning Core **can** distinguish between different actions performed by the sensor. For example it can tell us when the sensor is Idle or when a specific action (from numerous loaded in the Decision Tree) is performed.
+- SHUBv3
+
+![](RackMultipart20230414-1-bpee3o_html_5645535016ffba3d.png)
+
+- WL55JCx + SensorHubV3 + MKI197v1
+
+![](RackMultipart20230414-1-bpee3o_html_ab89092797f15b26.png)
+
+## 6.2 **Decision Tree Generation**
+
+The decision tree was generated based on the datasets that were logged for this project, which include:
+
+1. **Idle Position**
+2. **Low Fall Detection**
+3. **High Fall Detection**
+
+The tree was generated with WEKA, using **10-Fold Cross-Validation** and the **J48** algorithm.
+
+### 6.2.1 **K-fold Cross-Validation**
+
+Cross validation is one of the techniques used to test the effectiveness of machine learning models and avoid overfitting. It is a re-sampling procedure used to evaluate a model, and with the option of 5 or 10 folds (e.g., 10-fold Cross-Validation), the procedure can be executed without using excessive computation sources in order to train the model.
+
+With K-fold Cross-Validation we divide the data set into k-subsets and the procedure is repeated k-times. A training set is created, which consists of k-1 subsets and a testing set consisting of the remaining subsets.
+
+For example, in 10-fold Cross-Validation, the procedure would perform a total number of ten times, reserving 9/10 parts for training and the remaining 1/10th for testing, each time reserving a different tenth for testing.
+
+### 6.2.2**J48 Algorithm (also known as C4.5)**
+
+The C4.5 algorithm for building decision trees is implemented in Weka as a classifier
+called J48. The decision trees from this algorithm are generated using the concept of **information entropy** and can be used for **classification**.
+
+- **Information entropy** is a measure of how much information there is in some specific data. It isn't the length of the data, but the actual amount of information it contains.
+
+For example, **one text file could contain "Apples are red." and another text file could contain "Apples are red.**** Apples are red.**
+
+- **Classification** refers to a supervised learning concept which basically categorizes a set of data into classes.
+
+Classifiers, like filters, are organized in a hierarchy: J48 has the full name
+weka.classifiers.trees.J48. The classifier is shown in the text box next to the Choose
+button: It reads J48 –C 0.25 –M 2. This text gives the default parameter settings for this
+classifier.
+C4.5 has several parameters, by the default visualization (when you invoke the
+classifier) only shows –c ie. Confidence value (default 25%): lower values incur heavier
+pruning and -­‐M ie. Minimum number of instances in the two most popular branches
+(default 2). The full set of J48 parameter settings are explained here:
+[http://weka.sourceforge.net/doc.dev/weka/classifiers/trees/J48.html](http://weka.sourceforge.net/doc.dev/weka/classifiers/trees/J48.html%20) .
+
+_On the left is the extended Decision Tree created by WEKA with the J48 algorithm, and on the right is the Classifier Visualization._
+
+![](RackMultipart20230414-1-bpee3o_html_154eb4e2fdba322c.png)
+
+_Below is the Decision Tree visualization offered by WEKA._
+
+![](RackMultipart20230414-1-bpee3o_html_270c4a1e06298e1.png)
+
+## 6.3 **Performance**
+
+For the configuration that was given for this decision tree, the following test summary was given by the WEKA toolchain:
+
+| **Correctly Classified Instances** | 51 | 80.9524 % |
+| --- | --- | --- |
+| **Incorrectly Classified Instances** | 12 | 19.0476 % |
+| **Kappa statistic** | 0.7056 |
+ |
+| **Mean absolute error** | 0.1263 |
+ |
+| **Root mean squared error** | 0.3398 |
+ |
+| **Relative absolute error** | 29.1923 % |
+ |
+| **Root relative squared error** | 73.0292 % |
+ |
+| **Total Number of Instances** | 63 |
+ |
+
+## 6.4 **Video Demonstration**
+
+The video demonstrates the values of the registers that are generated by the Machine Learning Core based on the header file that was included in the firmware.
+
+[**Falling Detection with Machine Learning Core Sensor LSM6DSOX - WL55JCx + SensorHub || ISCA Lab**](https://www.youtube.com/watch?v=GsexEODn7TA)[**[12]**](#_References)
+
+![Picture 16](RackMultipart20230414-1-bpee3o_html_8ef2d51c3eeb4d3e.gif)
+
+# 7 **References**
+
+1. [**B-L072Z-LRWAN1**](https://teicrete-my.sharepoint.com/personal/tp4591_edu_hmu_gr/Documents/B-L072Z-LRWAN1), [https://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html](https://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html)
+
+2. [**X-NUCLEO-IKS01A3**](#_X-NUCLEO-IKS01A3), [https://www.st.com/en/ecosystems/x-nucleo-iks01a3.html](https://www.st.com/en/ecosystems/x-nucleo-iks01a3.html)
+
+1. [**STEVAL-MKI197V1**](#_STEVAL-MKI197V1), [https://www.st.com/en/evaluation-tools/steval-mki197v1.html](https://www.st.com/en/evaluation-tools/steval-mki197v1.html)
+
+1. [**I3C**](#_LSM6DSOX_Sensor_Initialization), [https://en.wikipedia.org/wiki/I3C\_(bus)](https://en.wikipedia.org/wiki/I3C_(bus))
+
+1. [**X-CUBE-MEMS1 Firmware Package**](#_Firmware),
+
+[https://github.com/STMicroelectronics/X-CUBE-MEMS1](https://github.com/STMicroelectronics/X-CUBE-MEMS1)
+
+1. [**Unicleo-GUI**](#_Unicleo-GUI), [https://www.st.com/en/development-tools/unicleo-gui.html](https://www.st.com/en/development-tools/unicleo-gui.html)
+
+1. [**Unico-GUI**](#_Unico-GUI_1), [https://www.st.com/en/development-tools/unico-gui.html](https://www.st.com/en/development-tools/unico-gui.html)
+
+1. [**Weka**](#_Weka), [https://www.cs.waikato.ac.nz/ml/index.html](https://www.cs.waikato.ac.nz/ml/index.html)
+
+1. [**Unico's Machine Learning Core User Guide**](#_Unico-GUI),
+
+[https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwiD8Jjfh5T6AhV-hf0HHevHC7AQFnoECB8QAQ&url=https%3A%2F%2Fwww.st.com%2Fresource%2Fen%2Fuser\_manual%2Fcd00297387-unico-gui-stmicroelectronics.pdf&usg=AOvVaw3QMf286kZJigIy6RPmtIM2](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&ved=2ahUKEwiD8Jjfh5T6AhV-hf0HHevHC7AQFnoECB8QAQ&url=https%3A%2F%2Fwww.st.com%2Fresource%2Fen%2Fuser_manual%2Fcd00297387-unico-gui-stmicroelectronics.pdf&usg=AOvVaw3QMf286kZJigIy6RPmtIM2)
+
+1. [**Machine Learning Core LSM6DSOX Demonstration || ISCA Lab**](#_Video_Demonstration),[https://www.youtube.com/watch?v=m6ylfVGBezo](https://www.youtube.com/watch?v=m6ylfVGBezo)
+
+1. [**Falling Detection with Machine Learning Core STM MEMS Sensor LSM6DSOX || ISCA Lab**](#_Video_Demonstration_1), [https://www.youtube.com/watch?v=tSlJXf\_sjQc&feature=youtu.be](https://www.youtube.com/watch?v=tSlJXf_sjQc&feature=youtu.be)
+
+1. **Falling Detection with Machine Learning Core Sensor LSM6DSOX - WL55JCx + SensorHub || ISCA Lab,** [https://www.youtube.com/watch?v=GsexEODn7TA](https://www.youtube.com/watch?v=GsexEODn7TA)
+
+6
