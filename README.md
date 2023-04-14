@@ -786,10 +786,10 @@ Lab](https://www.youtube.com/watch?v=GsexEODn7TA)
 alt="A picture containing text, indoor, blue Description automatically generated" />
 
 ### Power Measurement
-<img src="images/osciliometer.jpg" style="width:4.51875in;height:4.27272in"
-<img src="images/all_together.svg" style="width:4.51875in;height:4.27272in"
-<img src="images/2022-11-13_10-19.png" style="width:4.51875in;height:4.27272in"
-<img src="images/activity_MLC.png" style="width:4.51875in;height:4.27272in"
+<img src="images/osciliometer.jpg" style="width:4.51875in;height:4.27272in">
+<img src="images/all_together.svg" style="width:4.51875in;height:4.27272in">
+<img src="images/2022-11-13_10-19.png" style="width:4.51875in;height:4.27272in">
+<img src="images/activity_MLC.png" style="width:4.51875in;height:4.27272in">
 
 
 
