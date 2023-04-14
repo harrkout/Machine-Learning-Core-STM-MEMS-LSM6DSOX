@@ -118,11 +118,8 @@ The **B-L072Z-LRWAN1**[\[1\]](#references) board was chosen specifically
 for this project due to its portability, LoRaWan Connectivity and low
 battery consumption.
 
-<img src="images/image1.jpeg" style="width:2.42708in;height:2.06944in" />**[B-L072Z-LRWAN1](https://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html)  
+<img src="images/1_1.JPG" style="width:2.42708in;height:2.06944in" />**[B-L072Z-LRWAN1](https://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html)  
 **
-
-<img src="images/image2.jpeg" style="width:1.67612in;height:2.84348in"
-alt="A picture containing text, electronics, circuit Description automatically generated" />
 
 ## **X-NUCLEO-IKS01A3**
 
@@ -141,10 +138,9 @@ I²C pin, and it is possible to change the default I²C port.
 **  
   
   
-**[**X-NUCLEO-IKS01A3  
-**](https://www.st.com/en/ecosystems/x-nucleo-iks01a3.html)
+[**X-NUCLEO-IKS01A3  **](https://www.st.com/en/ecosystems/x-nucleo-iks01a3.html)
 
-<img src="images/image3.jpeg" style="width:2.83158in;height:2.80208in"
+<img src="images/2_2.JPG" style="width:2.83158in;height:2.80208in"
 alt="A picture containing electronics, circuit Description automatically generated" />
 
 ## **STEVAL-MKI197V1**
@@ -158,7 +154,7 @@ within the user’s own application.
 
 STEVAL-MKI197V1
 
-<img src="images/image4.jpeg" style="width:2.65947in;height:1.96875in" />
+<img src="images/3_3.JPG" style="width:2.65947in;height:1.96875in" />
 
 # **Hardware Synthesis**
 
@@ -171,7 +167,7 @@ First, the **X-NUCLEO-IKS01A3** needs to be connected to the Arduino R3
 pinouts of **B-L072Z-LRWAN1**. This gives the option to connect the
 **STEVAL-MKI197V1** to the DIL24 socket on top of the Nucleo extender.
 
-<img src="images/image5.jpeg" style="width:4.32222in;height:5.90625in" />
+<img src="images/4_4.JPG" style="width:4.32222in;height:5.90625in" />
 
 ## **Connection between X-NUCLEO-IKS01A3 and STEVAL-MKI197V1**
 
@@ -182,7 +178,7 @@ of the **X-NUCLEO-IKS01A3**.
 adapter are aligned, otherwise the adapter will overheat and most likely
 lead to short-circuit.
 
-<img src="images/image9.jpeg" style="width:3.23056in;height:3.84306in" />
+<img src="images/5_5.JPG" style="width:3.23056in;height:3.84306in" />
 
 ##  **LSM6DSOX Sensor Initialization**
 
@@ -202,7 +198,7 @@ M_INT2_0 on pin D2, in case a change needs to be made in the schematic.
 **After these changes, the LSM6DSOX sensor will be enabled.**
 
 **  
-**<img src="images/image10.jpeg" style="width:5.025in;height:2.97083in" />
+**<img src="images/6_6.JPG" style="width:5.025in;height:2.97083in" />
 
 # **Firmware and Software**
 
@@ -337,7 +333,7 @@ included in the Weka distribution is sequence modeling.
 
 ## **STM32CubeIDE**
 
-<img src="images/image11.jpeg" style="width:5.94375in;height:3.225in" />First,
+<img src="images/unicleo1.png" style="width:5.94375in;height:3.225in" />First,
 the program needs to be flashed on the board. This needs to be done with
 **STM32CubeIDE**.
 
@@ -349,7 +345,7 @@ and ready to be used.
 This is the interface of **Unicleo**. If the board is connected via USB
 (ST Link) then the Serial Port
 
-<img src="images/image12.jpeg"
+<img src="images/unicleo1_2.png"
 style="width:5.84167in;height:3.22847in" />should be automatically
 selected, mine for example is COM5. **S*elect Connect***.
 
@@ -360,14 +356,14 @@ The sensors list will pop up and show all available sensors. Choose the
 the exact same sensor, but on the extender IKS01A3 and does not contain
 the Machine Learning Core.
 
-> <img src="images/image13.jpeg"
+> <img src="images/unicleo2.png"
 > style="width:5.82292in;height:3.23125in" />
 
 After **Apply** has been selected, the following window will pop up. It
 shows the sensors of the IKS01A3 and the MKI197V1 along with their
 locations on the board**.**
 
-<img src="images/image14.jpeg"
+<img src="images/unicleo3.png"
 style="width:5.84583in;height:3.27083in" />On the left the option for
 the visualization of the available sensors can be seen.
 
@@ -378,7 +374,7 @@ a custom ***.ucf*** dataset can be loaded. Bellow that are some
 cording to the motion of the sensor, a different value will be shown on
 the ***MLC Source Registers*** bellow.
 
-<img src="images/image15.png" style="width:2.50417in;height:3.47431in" />The
+<img src="images/unicleo4.png" style="width:2.50417in;height:3.47431in" />The
 values will be displayed on the blocks on the right of ***MLC0_SRC***.
 
 ## **Machine Learning Core Example**
@@ -396,7 +392,7 @@ According to the documentation of the algorithm:
 
 -   **8 = Jogging/Running**
 
-<img src="images/image16.jpeg"
+<img src="images/unicleo5.png"
 style="width:5.18073in;height:3.92823in" />**  
 **
 
@@ -404,7 +400,7 @@ Before an algorithm can be selected, ***Start*** must be selected on the
 main window, to activate the sensor. After that, the sensor will begin
 sending feedback.
 
-<img src="images/image17.jpeg" style="width:5.75784in;height:3.23257in"
+<img src="images/unicleo6.png" style="width:5.75784in;height:3.23257in"
 alt="Graphical user interface Description automatically generated" />
 
 Now, instead of using one of the example algorithms, a custom ***.ucf***
@@ -421,7 +417,7 @@ the left of the main window. Next choose the sensors that you want to
 log into a file from both **Data** and **Datalog period source** ad set
 a file for said activity.*
 
-<img src="images/image18.jpeg"
+<img src="images/unicleo7.png"
 style="width:3.86528in;height:2.61597in" />*Here, motions will be
 monitored for approximately 1 minute and saved in a dataset file
 **karate.csv**.  
@@ -429,7 +425,7 @@ monitored for approximately 1 minute and saved in a dataset file
 
 The same steps will be followed for the dataset ***boxing.csv .***
 
-<img src="images/image19.jpeg"
+<img src="images/unico1.png"
 style="width:4.07778in;height:2.71875in" />
 
 ## **Unico-GUI**
@@ -442,13 +438,13 @@ to be used in offline mode. That means that it will not connect with the
 board, but the datasets will be able to be loaded in order to extract an
 ***.arff*** file.
 
-<img src="images/image20.jpeg"
+<img src="images/unico2.png"
 style="width:5.31389in;height:2.85417in" />Select in the **iNemo
 Inertial Modules** the ***STEVAL-MKI197V1 (LSM6DSOX)*** sensor and
 deselect the ***Communication with the motherboard*** option. Then click
 on ***Select Device***.
 
-<img src="images/image21.png" style="width:4.09514in;height:3.14583in" />After
+<img src="images/unico3.png" style="width:4.09514in;height:3.14583in" />After
 the main window shows up, select ***MLC*** on the left and the
 ***Machine Learning Core*** [\[9\]](#references) window will open.
 
@@ -456,10 +452,10 @@ Now each one of the datasets will be loaded and set the ***Class
 Label*** as ***boxing*** for the **Boxing** Dataset and **Karate** for
 the Karate Dataset.
 
-<img src="images/image22.png" style="width:6.02328in;height:3.56036in"
+<img src="images/unico4.png" style="width:6.02328in;height:3.56036in"
 alt="Graphical user interface, table Description automatically generated" />
 
-<img src="images/image23.png" style="width:5.86458in;height:3.42222in" />Then,
+<img src="images/unico5.png" style="width:5.86458in;height:3.42222in" />Then,
 the ***Configuration*** Tab must be selected. Here are the options that
 were given to the ***Decision Tree.***
 
@@ -467,20 +463,20 @@ The chosen options were all the ***Signed*** options ***ACC_X, ACC_Y,
 ACC_Z, GY_X, GY_Z*** for the ***Mean**, **Variance**, **Energy** and
 **Peak** **to** **Peak*** features.
 
-<img src="images/image24.png" style="width:5.60417in;height:3.30139in" />
+<img src="images/unico6.png" style="width:5.60417in;height:3.30139in" />
 
-<img src="images/image25.png" style="width:5.65145in;height:3.29564in" />
+<img src="images/unico7.png" style="width:5.65145in;height:3.29564in" />
 
 Save the file as **.arff** and choose the desired output values of the
 **Decision Tree**.
 
 -   **1** was set for **Karate** and **2** for **Boxing**.
 
-<img src="images/image26.png" style="width:6.49306in;height:3.85903in" />
+<img src="images/unico8.png" style="width:6.49306in;height:3.85903in" />
 
 ## **Weka**
 
-<img src="images/image27.png" style="width:4.42153in;height:3.32986in" />Open
+<img src="images/weka.png" style="width:4.42153in;height:3.32986in" />Open
 ***Weka*** ***Explorer*** and load the **sports.arff** file that was
 created above:
 
@@ -489,45 +485,44 @@ Select the ***Classify Tab*** and then ***Choose*** on the
 The ***Cross-Validation Folds*** option was set on 10, as default, since
 it gives an approximate 98% result.
 
-<img src="images/image28.png" style="width:5.64306in;height:4.24375in" /><img src="images/image29.png" style="width:2.225in;height:3.79167in" />
+<img src="images/weka2.png" style="width:5.64306in;height:4.24375in" /><img src="images/image29.png" style="width:2.225in;height:3.79167in" />
 
-<img src="images/image30.jpeg" style="width:6.1437in;height:3.36458in" />The
+<img src="images/weka3.png" style="width:6.1437in;height:3.36458in" />The
 ***Decision Tree*** has been generated, but in order to load it into
 ***Unico*** to create the ***.ucf*** file, the selected text, as seen in
 the image below (***The tree itself***), needs to be copied and pasted
 into a ***.txt*** file.
 
-<img src="images/image31.png" style="width:3.85694in;height:3.1875in" />
+<img src="images/weka4.png" style="width:3.85694in;height:3.1875in" />
 
 And to see the ***Decision Tree***, right click on the ***Result List***
 and select ***Visualize Tree***.
 
-<img src="images/image32.png" style="width:5.64236in;height:4.23958in" />
+<img src="images/weka5.png" style="width:5.64236in;height:4.23958in" />
 
-<img src="images/image33.png" style="width:6.02083in;height:3.51042in" />Now
+<img src="images/weka6.png" style="width:6.02083in;height:3.51042in" />Now
 the **.txt** file can be loaded into the ***Unico*** window that was
 left intact a while ago.
 
 And save the file as ***sports.ucf***.
 
-<img src="images/image34.png" style="width:5.84236in;height:3.41667in" />
-
-<img src="images/image35.png" style="width:2.92708in;height:4.09653in" />Now
-the **sports.ucf** file can be loaded into **Unicleo** in the **MLC**
+<img src="images/unico_mlc.png" style="width:2.92708in;height:4.09653in" />
+\Now the **sports.ucf** file can be loaded into **Unicleo** in the **MLC**
 (Machine Learning Core) option.
 
 **  
 **
+<img src="images/final1.png" style="width:2.48819in;height:3.43472in" />
 
 Here the changes can be seen as the value changes to **0x01** in
 ***MLC0_SRC*** when the board mimics the action for **Karate** .
 
-> <img src="images/image36.png" style="width:2.48819in;height:3.43472in" />
+<img src="images/final2.png" style="width:2.6375in;height:3.72083in" />
 
 And here ***MLC0_SRC*** changes to ***2*** when the board mimics the
 action for **Boxing**.
 
-<img src="images/image37.png" style="width:2.6375in;height:3.72083in" />
+<img src="images/final3.png" style="width:2.6375in;height:3.72083in" />
 
 ## **Video Demonstration**
 
@@ -539,7 +534,7 @@ changing value from *1* to *2* when it recognizes the different actions.
 > Lab</u>**](https://www.youtube.com/watch?v=m6ylfVGBezo)
 > [\[10\]](#references)
 
-<img src="images/image38.jpeg"
+<img src="images/6_6.JPG"
 style="width:5.83472in;height:3.45347in" />
 
 # **Falling Detection Algorithm**
@@ -595,8 +590,9 @@ style="width:5.83472in;height:3.45347in" />
 ## **Project Equipment**
 
 > **<u>  
-> </u>**<img src="images/image39.png" style="width:5.35631in;height:3.65903in" />**  
->   
+> </u>**<img src="images/front1_edited.png" style="width:5.35631in;height:3.65903in" />**  
+> </u>**<img src="images/base_edited.png" style="width:5.35631in;height:3.65903in" />**  
+
 > **
 
 ## **Video Demonstration**
@@ -617,7 +613,7 @@ MLC Source Register ***0x70 MLC_SRC*** values in Unicleo:
 [**Falling Detection with Machine Learning Core STM MEMS Sensor LSM6DSOX
 \|\| ISCA Lab** \[11\]](\l)
 
-[<img src="images/image40.jpeg"
+[<img src="images/2022-09-08_13-39.png"
 style="width:5.69446in;height:3.07083in" />](\l)
 
 ## **Possible Real-World Use Scenarios**
@@ -675,17 +671,21 @@ the Decision Tree was created.
 
 -   WL55JCx (x = 1 or 2)
 
-<img src="images/image41.jpeg"
+<img src="images/wl55jc.svg"
 style="width:2.64582in;height:4.70369in" />
 
 -   SHUBv3
 
-<img src="images/image42.png" style="width:4.18512in;height:3.13697in"
+<img src="images/hub.svg" style="width:4.18512in;height:3.13697in"
 alt="A picture containing text, circuit, electronics Description automatically generated" />
+
+<img src="images/hub_ports.png" style="width:4.18512in;height:3.13697in"
+alt="A picture containing text, circuit, electronics Description automatically generated" />
+
 
 -   WL55JCx + SensorHubV3 + MKI197v1
 
-<img src="images/image43.png" style="width:4.51875in;height:4.27272in"
+<img src="images/hardware.svg" style="width:4.51875in;height:4.27272in"
 alt="A picture containing text, indoor, blue Description automatically generated" />
 
 ## **Decision Tree Generation**
@@ -756,16 +756,6 @@ here:
 [http://weka.sourceforge.net/doc.dev/weka/classifiers/trees/J48.html](http://weka.sourceforge.net/doc.dev/weka/classifiers/trees/J48.html%20)
 .
 
-*On the left is the extended Decision Tree created by WEKA with the J48
-algorithm, and on the right is the Classifier Visualization.*
-
-<img src="images/image44.png" style="width:6.26875in;height:3.4375in" />
-
-*Below is the Decision Tree visualization offered by WEKA.*
-
-<img src="images/image45.png" style="width:2.99004in;height:3.91467in"
-alt="Diagram Description automatically generated" />
-
 ## **Performance**
 
 For the configuration that was given for this decision tree, the
@@ -792,8 +782,16 @@ WL55JCx + SensorHub \|\| ISCA
 Lab](https://www.youtube.com/watch?v=GsexEODn7TA)
 [\[12\]](#references)**
 
-<img src="images/image43.png" style="width:4.51875in;height:4.27272in"
+<img src="images/hardware.svg" style="width:4.51875in;height:4.27272in"
 alt="A picture containing text, indoor, blue Description automatically generated" />
+
+### Power Measurement
+<img src="images/osciliometer.jpg" style="width:4.51875in;height:4.27272in"
+<img src="images/all_together.svg" style="width:4.51875in;height:4.27272in"
+<img src="images/2022-11-13_10-19.png" style="width:4.51875in;height:4.27272in"
+<img src="images/activity_MLC.png" style="width:4.51875in;height:4.27272in"
+
+
 
 # **References**
 
